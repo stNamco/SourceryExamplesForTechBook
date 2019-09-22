@@ -1,0 +1,44 @@
+import XCTest
+@testable import SourceryExamples
+import SwiftCheck
+
+
+// MARK: - AutoArbitrary for structs
+
+{% for type in types.based.AutoArbitrary %}
+// type
+
+{% if type.kind == "struct" or type.kind == "class" %}
+// MARK: - {{ type.name }} AutoArbitrary
+extension {{ type.name }}: Arbitrary {
+public static var arbitrary: Gen<{{ type.name }}> {
+return Gen<{{ type.name }}>.compose { _ in
+return {{ type.name }}(
+{% for variable in type.storedVariables %}
+{{ variable.name }}: {{ variable.typeName }}.arbitrary{% if variable.annotations %}.suchThat { {{ variable.annotations.itHolds }} }{% endif %}.generate{% if not forloop.last %}, {% endif %}
+{% endfor %}
+)
+}
+}
+}
+{% endif %}
+{% endfor %}
+
+// MARK: - AutoArbitrary for enums
+
+{% for type in types.based.AutoArbitrary|enum %}
+extension {{ type.name }}: Arbitrary {
+public static var arbitrary: Gen<{{ type.name}}> {
+return Gen<{{ type.name}}>.fromElements(of: [
+{% for case in type.cases %}
+{% if not case.hasAssociatedValue %}
+{{ type.name}}.{{ case.name }}{% if not forloop.last %},{% endif %}
+{% else %}
+{% for assoVal in case.associatedValues %}
+{{ type.name}}.{{ case.name }}({{ assoVal.localName }}{% if not assoVal.localName == nil %}: {% endif %}{{ assoVal.typeName }}.arbitrary){% endfor %}{% if not forloop.last %},{% endif %}
+{% endif %}
+{% endfor %}
+])
+}
+}
+{% endfor %}

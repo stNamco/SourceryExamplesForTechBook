@@ -1,0 +1,6 @@
+{% for enum in types.enums %}
+// {{ enum.name }}のcount定義をするExtension
+extension {{ enum.name }} {
+static var count: Int { return {{ enum.cases.count }} }
+}
+{% endfor %}

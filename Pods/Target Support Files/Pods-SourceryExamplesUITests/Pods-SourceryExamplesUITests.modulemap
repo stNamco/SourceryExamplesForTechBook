@@ -1,0 +1,6 @@
+framework module Pods_SourceryExamplesUITests {
+  umbrella header "Pods-SourceryExamplesUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
