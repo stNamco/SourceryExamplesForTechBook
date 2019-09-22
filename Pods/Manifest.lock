@@ -1,0 +1,32 @@
+PODS:
+  - Nuke (7.4.2)
+  - Sourcery (0.14.0)
+  - SwiftCheck (0.12.0)
+  - SwiftFormat/CLI (0.33.7)
+  - SwiftLint (0.26.0)
+
+DEPENDENCIES:
+  - Nuke (= 7.4.2)
+  - Sourcery (= 0.14.0)
+  - SwiftCheck
+  - SwiftFormat/CLI (= 0.33.7)
+  - SwiftLint (~> 0.26.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Nuke
+    - Sourcery
+    - SwiftCheck
+    - SwiftFormat
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  Nuke: aee5c42001369902798f7b844611b8ae930ce333
+  Sourcery: 51332d15c2fc40e4ac5956e149a5d95607c63154
+  SwiftCheck: d1dd04d955cc76620b0f84e087536bd059a11c24
+  SwiftFormat: 2e9b261a2ded97bc2aff2710c9826c6548a45bdb
+  SwiftLint: f6b83e8d95ee1e91e11932d843af4fdcbf3fc764
+
+PODFILE CHECKSUM: 5553c3bd4ae01cadd5c9630709c22eaf60b88a63
+
+COCOAPODS: 1.5.3

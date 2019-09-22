@@ -1,0 +1,48 @@
+import XCTest
+@testable import SourceryExamples
+
+{% for type in types.protocols where type.based.RepositoryType %}
+// MARK: {{ type.name }}
+
+class Mock{{ type.name }}Impl: {{ type.name }} {
+
+weak var delegate: RepositoryDelegate?
+
+init() {}
+
+{% for type in type.variables.based.AutoArbitrary %}
+// MARK: {{ type }}
+{% if type.name == "items" %}
+var {{ type.name }}: {{ type.typeName }} = {{ type.typeName }}.arbitrary.generate
+{% endif %}
+{% endfor %}
+
+func read(completion: (Result<[Repository]>) -> Void) {
+completion(.success(items))
+}
+
+}
+{% endfor %}
+
+
+
+
+
+
+{% for type in types.protocols where type.based.HumbleObject %}
+{% if type.accessLevel == "internal" %}
+// MARK: {{ type.name }}
+
+class Mock{{ type.name }}: {{ type.name }} {
+
+{% for method in type.methods %}
+{% if method.accessLevel == "internal" %}
+func {{ method.name }} {
+XCTAssertTrue(true)
+}
+{% endif %}
+{% endfor %}
+
+}
+{% endif %}
+{% endfor %}
